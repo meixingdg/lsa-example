@@ -9,9 +9,9 @@ The example used here is taken from page 15 of [http://www.cs.cmu.edu/~jimeng/pa
 
 ## Usage
 Run the following:
-'''
+```
 python lsa.py
-'''
+```
 
 The first portion of the output contains the three matrices from plain SVD using numpy's SVD implementation.
 
