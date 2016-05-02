@@ -65,6 +65,27 @@ for topic in lsi_model.print_topics(2):
 print ''
 #print lsi_model.print_topics(2)
 
-print "Corpus transformed wrt topics from LSI: " 
+# TODO: this should be the left singular vectors, but is instead the right singular vectors. Why?
+
+print "U:"
+s = lsi_model.projection.s
+u = np.zeros((7, 2))
+i = 0
+for doc in corpus_lsi:
+  u[i][doc[0][0]] = doc[0][1]/s[doc[0][0]]
+  i += 1
+print u
+print ''
+
+print "S:"
+print np.diag(s)
+print ''
+
+print "V:"
+print np.transpose(np.array(lsi_model.projection.u))
+print ''
+
+
+print "Corpus transformed wrt topics from LSI (u*weight): " 
 for doc in corpus_lsi:
   print(doc)
