@@ -1,5 +1,6 @@
 #Author: MeiXing Dong
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 from gensim import corpora, models, similarities
@@ -63,7 +64,6 @@ print "Topics: "
 for topic in lsi_model.print_topics(2):
   print(topic)
 print ''
-#print lsi_model.print_topics(2)
 
 # TODO: this should be the left singular vectors, but is instead the right singular vectors. Why?
 
@@ -78,14 +78,40 @@ print u
 print ''
 
 print "S:"
-print np.diag(s)
+S = np.diag(s)
+print S
 print ''
 
 print "V:"
-print np.transpose(np.array(lsi_model.projection.u))
+V = np.round(np.transpose(np.array(lsi_model.projection.u)), 4)
+print V
 print ''
 
 
 print "Corpus transformed wrt topics from LSI (u*weight): " 
 for doc in corpus_lsi:
   print(doc)
+
+# Visualization of the term and document representations in the latent space.
+# Document representations in latent space.
+#latent_docs = []
+#for doc_row in data_array:
+#  latent_doc = np.dot(doc_row, np.transpose(V))
+#  latent_docs.append(latent_doc)
+print ''
+
+#print latent_docs
+latent_docs = np.dot(data_array, np.transpose(V))
+print latent_docs
+plt.plot([x[0] for x in latent_docs], [x[1] for x in latent_docs], 'ro')
+plt.show()
+plt.clf()
+
+print ''
+# Term representation in latent space.
+latent_terms = np.dot(np.transpose(data_array), u)
+print latent_terms
+plt.plot([x[0] for x in latent_terms], [x[1] for x in latent_terms], 'ro')
+plt.show()
+
+
